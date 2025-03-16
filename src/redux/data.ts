@@ -8,16 +8,27 @@ interface Movie {
   Year: string;
   Title: string;
 }
+
+interface MovieListContent {
+  imdbID: string;
+  Title: string;
+}
+
+interface MovieList {
+  [key: string]: MovieListContent;
+}
 interface DataState {
   movies: Movie[];
   searchResult:string;
   searchKey:string
+  watchList:MovieList;
 }
 
 const initialState: DataState = {
   movies: [],
   searchResult:'',
   searchKey:'',
+  watchList:{},
 };
 
 const dataSlice = createSlice({
@@ -33,8 +44,22 @@ const dataSlice = createSlice({
     setSearchKey: (state, action: PayloadAction<string>) => {
       state.searchKey = action.payload;
     },
+    addToWatchList(state, action: PayloadAction<Partial<Movie>>) {
+      const movie = action.payload;
+      if (movie.imdbID) {
+        state.watchList[movie.imdbID] = {
+          ...state.watchList[movie.imdbID],
+          ...movie,
+        };
+      }
+    },
+    removeFromWatchList(state, action: PayloadAction<string>) {
+      console.log('action.payload',action.payload)
+      const imdbID = action.payload;
+      delete state.watchList[imdbID];
+    },
   }
 });
 
-export const { setMovies,setSearchResult,setSearchKey } = dataSlice.actions;
+export const { setMovies,setSearchResult,setSearchKey,addToWatchList,removeFromWatchList } = dataSlice.actions;
 export default dataSlice.reducer;

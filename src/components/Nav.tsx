@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setMovies,setSearchResult,setSearchKey } from '../redux/data';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMovies, setSearchResult, setSearchKey } from '../redux/data';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../redux/store';
+
+interface Movie {
+  Title: string;
+  imdbID: string;
+}
+
+interface MovieList {
+  [key: string]: Movie;
+}
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const watchList: MovieList = useSelector((state: RootState) => state.data.watchList);
   const [watchListOpen, setWatchListOpen] = useState(false);
-  const [searchkey, setSeaarch] = useState('');
+  const [searchkey, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [movieListArray, setMovieListArray] = useState<[string, Movie][]>([]);
 
   const toggleWatchList = () => {
     setWatchListOpen(!watchListOpen);
@@ -17,27 +30,39 @@ function Nav() {
   const getMovies = async () => {
     const response = await fetch(`https://www.omdbapi.com/?s=${searchkey}&page=${page}&apikey=320f6ab2`);
     const data = await response.json();
-    if(data.Response	==='True'){
-      dispatch(setMovies(data.Search || []))
-    }else{
-      dispatch(setSearchResult(data.Error	 || ''))
-      dispatch(setMovies([]))
+    if (data.Response === 'True') {
+      dispatch(setMovies(data.Search || []));
+    } else {
+      dispatch(setSearchResult(data.Error || ''));
+      dispatch(setMovies([]));
     }
   };
-  
+
   useEffect(() => {
     getMovies();
   }, [searchkey]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSeaarch(event.target.value); 
-    dispatch(setSearchKey(event.target.value))
+    setSearch(event.target.value);
+    dispatch(setSearchKey(event.target.value));
     navigate('/');
+  };
+
+  useEffect(() => {
+    setMovieListArray(Object.entries(watchList)); // 更新 watchList 映射
+  }, [watchList]);
+
+  const goHome = () => {
+    navigate('/');
+  }
+
+  const goMovie = (id:string) => {
+    navigate(`/movie/${id}`);
   };
 
   return (
     <nav className="fixed top-0 p-2 dark:bg-black w-full flex justify-between">
-      <div className="font-bold text-3xl">Getfilx</div>
+      <div className="font-bold text-3xl cursor-pointer" onClick={goHome}>Getfilx</div>
 
       <form className="flex items-center max-w-sm mx-auto">
         <label className="sr-only">Search</label>
@@ -51,7 +76,6 @@ function Nav() {
             value={searchkey}
             onChange={handleSearchChange}
           />
-
         </div>
 
         <button
@@ -59,7 +83,7 @@ function Nav() {
           className="p-2.5 ms-2 text-sm font-medium bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         >
           <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
           </svg>
           <span className="sr-only">Search</span>
         </button>
@@ -69,26 +93,22 @@ function Nav() {
         WatchList
       </button>
 
-
       {watchListOpen && (
-        <div
-          className="fixed inset-0 bg-gray-800 opacity-50 z-40"
-          onClick={toggleWatchList}
-        ></div>
+        <div className="fixed inset-0 bg-gray-800 opacity-50 z-40" onClick={toggleWatchList}></div>
       )}
-      <div
-        className={`fixed top-0 right-0 bg-gray-800 text-white w-64 h-full transform transition-all duration-300 z-50 ${watchListOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-      >
-        <div className="flex justify-between p-4">
-          <h2 className="text-lg">Menu</h2>
-          <button onClick={toggleWatchList} className="text-white">
-            &times;
-          </button>
+      <div className={`fixed top-0 right-0 bg-gray-800 text-white w-64 h-full transform transition-all duration-300 z-50 ${watchListOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="p-4">
+          <h3 className="text-xl font-bold">WatchList</h3>
+          {movieListArray.length > 0 ? (
+            movieListArray.map(([key, movie]) => (
+              <div key={key}>
+                <h4 className='my-2 cursor-pointer' onClick={()=>goMovie(key)}>{movie.Title}</h4>
+              </div>
+            ))
+          ) : (
+            <p className='my-2'>No movies in your watchlist</p>
+          )}
         </div>
-        <ul className="space-y-4 p-4">
-          123
-        </ul>
       </div>
     </nav>
   );
