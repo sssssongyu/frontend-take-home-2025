@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.jsx'
+import Movie from './pages/Movie.jsx'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 
@@ -15,7 +16,7 @@ function App() {
         <div className='pt-20'>
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/booking" element={<Booking />} /> */}
+            <Route path="/movie/:id" element={<Movie />} />
           </Routes>
         </div>
         <Footer />

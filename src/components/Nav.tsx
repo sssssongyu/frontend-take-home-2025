@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setMovies,setSearchResult,setSearchKey } from '../redux/data';
+import { useNavigate } from 'react-router-dom';
 
 function Nav() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [watchListOpen, setWatchListOpen] = useState(false);
   const [searchkey, setSeaarch] = useState('');
   const [page, setPage] = useState(1);
@@ -30,6 +32,7 @@ function Nav() {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSeaarch(event.target.value); 
     dispatch(setSearchKey(event.target.value))
+    navigate('/');
   };
 
   return (
