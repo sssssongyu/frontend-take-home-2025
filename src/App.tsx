@@ -9,13 +9,15 @@ import Footer from './components/Footer.jsx'
 function App() {
 
   return (
-    <div className="App">
+    <div className="App bg-white min-h-screen text-black dark:bg-black dark:text-white w-full h-full">
       <BrowserRouter>
         <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* <Route path="/booking" element={<Booking />} /> */}
-        </Routes>
+        <div className='pt-20'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {/* <Route path="/booking" element={<Booking />} /> */}
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>

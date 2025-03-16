@@ -1,31 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+
+interface Movie {
+  Poster: string;
+  Type: string;
+  imdbID: string;
+  Year: string;
+  Title: string;
+}
 interface DataState {
-  count: number;
+  movies: Movie[];
+  searchResult:string;
+  searchKey:string
 }
 
 const initialState: DataState = {
-  count: 0,
+  movies: [],
+  searchResult:'',
+  searchKey:'',
 };
 
 const dataSlice = createSlice({
   name: 'data', 
   initialState,
   reducers: {
-    increment: (state) => {
-      state.count += 1;
+    setMovies: (state, action: PayloadAction<Movie[]>) => {
+      state.movies = action.payload; 
     },
-    decrement: (state) => {
-      state.count -= 1;
+    setSearchResult: (state, action: PayloadAction<string>) => {
+      state.searchResult = action.payload;
     },
-    reset: (state) => {
-      state.count = 0;
+    setSearchKey: (state, action: PayloadAction<string>) => {
+      state.searchKey = action.payload;
     },
-    setCount: (state, action: PayloadAction<number>) => {
-      state.count = action.payload;
-    }
   }
 });
 
-export const { increment, decrement, reset, setCount } = dataSlice.actions;
+export const { setMovies,setSearchResult,setSearchKey } = dataSlice.actions;
 export default dataSlice.reducer;
