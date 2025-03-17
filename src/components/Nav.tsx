@@ -61,7 +61,7 @@ function Nav() {
   };
 
   return (
-    <nav className="fixed top-0 p-2 dark:bg-black w-full flex justify-between flex-wrap gap-4">
+    <nav className="bg-white dark:bg-black fixed top-0 p-2 dark:bg-black w-full flex justify-between flex-wrap gap-4">
       <div className="sm:w-auto font-bold text-3xl cursor-pointer" onClick={goHome}>Getfilx</div>
 
       <form className="w-full text-center sm:w-auto sm:order-none order-last flex items-center max-w-sm mx-auto">
