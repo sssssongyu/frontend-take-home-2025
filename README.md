@@ -44,8 +44,8 @@ This project is a movie search application that allows users to search and filte
 
 ### Prerequisites
 
-- Node.js 
-- npm
+- Node.js – I used version 20.x for development
+- npm – I used version 10.x for development
 
 ### Steps to Run the Project
 
