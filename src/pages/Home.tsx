@@ -22,29 +22,30 @@ function Home() {
 
   return (
     <div className="mx-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movies.length !== 0 ? (
-          movies.map((movie) => (
-            <div
-              key={movie.imdbID}
-              className="cursor-pointer bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-              onClick={()=>goMovie(movie.imdbID)}
-            >
-              <a href="#">
-                <img className="rounded-t-lg w-full" src={movie.Poster!=='N/A'?movie.Poster:'/noposter.jpeg'} alt={movie.Title} />
-              </a>
-              <div className="p-5">
+          <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+
+            {movies.map((movie) => (
+              <div
+                key={movie.imdbID}
+                className="cursor-pointer bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                onClick={()=>goMovie(movie.imdbID)}
+              >
                 <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{movie.Title}</h5>
+                  <img className="rounded-t-lg w-full" src={movie.Poster!=='N/A'?movie.Poster:'/noposter.jpeg'} alt={movie.Title} />
                 </a>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{movie.Year}</p>
+                <div className="p-5">
+                  <a href="#">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{movie.Title}</h5>
+                  </a>
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{movie.Year}</p>
+                </div>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         ) : (
-          <div>{searchKey==''?'Please search movies':`Warning: ${searchResult}`}</div>
+          <div className='text-red-400'>{searchKey==''?'Search the movies you\'re interested in':`Warning: ${searchResult}`}</div>
         )}
-      </div>
     </div>
 
   );
