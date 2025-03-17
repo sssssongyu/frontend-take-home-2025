@@ -38,6 +38,8 @@ This project is a movie search application that allows users to search and filte
 ### 7. **Light / Dark Mode Toggle**
    - Users can toggle between **light** and **dark** modes, enhancing the user experience based on their preference.
 
+### 8. **Screen Reader Support**
+   - To ensure the app meets accessibility standards and improve SEO, all images should have an alt attribute with a clear and accurate description. 
 ---
 
 ## How to Start
