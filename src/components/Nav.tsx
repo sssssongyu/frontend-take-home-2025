@@ -1,6 +1,6 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMovies, setSearchResult, setSearchKey } from '../redux/data';
+import { setMovies, setSearchResult, setSearchKey, setEmptyMovies } from '../redux/data';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../redux/store';
 import { debounce } from 'lodash';
@@ -23,25 +23,56 @@ function Nav() {
   const [searchkey, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [movieListArray, setMovieListArray] = useState<[string, Movie][]>([]);
+  const [selectMovieType, setSelectMovieType] = useState(false);
+  const [movieType, setMovieType] = useState('');
+  const movieTypes: { [key: string]: string } = {
+    '': 'All',
+    movies: 'Movies',
+    series: 'Series',
+    episodes: 'Episodes',
+  };
+
+  const handleChangMovieType = (key: keyof typeof movieTypes) => {
+    setMovieType(key);
+    console.log('s', key)
+  };
+
+  const toggleMovieTypeSelection = () => {
+    setSelectMovieType(!selectMovieType);
+  };
 
   const toggleWatchList = () => {
     setWatchListOpen(!watchListOpen);
   };
 
   const getMovies = async () => {
-    const response = await fetch(`https://www.omdbapi.com/?s=${searchkey}&page=${page}&apikey=320f6ab2`);
+    const response = await fetch(`https://www.omdbapi.com/?s=${searchkey}&page=${page}&apikey=320f6ab2&type=${movieType}`);
     const data = await response.json();
     if (data.Response === 'True') {
       dispatch(setMovies(data.Search || []));
     } else {
       dispatch(setSearchResult(data.Error || ''));
-      dispatch(setMovies([]));
+      if (page === 1) {
+        dispatch(setEmptyMovies());
+      }
     }
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(setEmptyMovies());
+    setPage(1);
+    if (page == 1) {
+      getMovies();
+    } else {
+      setPage(1);
+    }
+  }, [searchkey, movieType]);
+
+  useEffect(() => {
     getMovies();
-  }, [searchkey,page]);
+  }, [page]);
+
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -50,14 +81,14 @@ function Nav() {
   };
 
   useEffect(() => {
-    setMovieListArray(Object.entries(watchList)); 
+    setMovieListArray(Object.entries(watchList));
   }, [watchList]);
 
   const goHome = () => {
     navigate('/');
   }
 
-  const goMovie = (id:string) => {
+  const goMovie = (id: string) => {
     navigate(`/movie/${id}`);
   };
   const handleScroll = debounce(() => {
@@ -65,9 +96,9 @@ function Nav() {
       window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight - 100
     ) {
-      setPage(prevPage => prevPage + 1); 
+      setPage(prevPage => prevPage + 1);
     }
-  }, 300); 
+  }, 300);
 
 
   useEffect(() => {
@@ -93,7 +124,7 @@ function Nav() {
           />
         </div>
 
-        <button
+        {/* <button
           type="submit"
           className="p-2.5 ms-2 text-sm font-medium bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         >
@@ -101,7 +132,33 @@ function Nav() {
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
           </svg>
           <span className="sr-only">Search</span>
-        </button>
+        </button> */}
+
+        <div className='relative'>
+          <button onClick={toggleMovieTypeSelection} id="dropdownDefaultButton" className="w-auto ml-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">{movieTypes[movieType]} <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+          </svg>
+          </button>
+
+          {selectMovieType && (
+            <div id="dropdown" className="absolute top-10 z-10 divide-y divide-gray-100 rounded-lg shadow-sm w-30 dark:bg-gray-700 bg-white">
+              <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                {Object.keys(movieTypes).map((key) => (
+                  <li key={key}>
+                    <a
+                      href="#"
+                      className="block p-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      onClick={() => handleChangMovieType(key as keyof typeof movieTypes)}
+                    >
+                      {movieTypes[key as keyof typeof movieTypes]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
       </form>
 
       <button onClick={toggleWatchList} className=" sm:w-auto p-2 text-sm cursor-pointer bg-black dark:bg-white text-white dark:text-black rounded-full">
@@ -116,11 +173,11 @@ function Nav() {
           <h3 className="text-xl font-bold flex justify-between">
             <div>WatchList</div>
             <div className="cursor-pointer" onClick={toggleWatchList}>X</div>
-            </h3>
+          </h3>
           {movieListArray.length > 0 ? (
             movieListArray.map(([key, movie]) => (
               <div key={key}>
-                <h4 className='my-2 cursor-pointer' onClick={()=>goMovie(key)}>{movie.Title}</h4>
+                <h4 className='my-2 cursor-pointer' onClick={() => goMovie(key)}>{movie.Title}</h4>
               </div>
             ))
           ) : (

@@ -40,6 +40,9 @@ const dataSlice = createSlice({
     setMovies: (state, action: PayloadAction<Movie[]>) => {
       state.movies = [...state.movies, ...action.payload];
     },
+    setEmptyMovies: (state) => {
+      state.movies = [];
+    },
     setSearchResult: (state, action: PayloadAction<string>) => {
       state.searchResult = action.payload;
     },
@@ -65,5 +68,5 @@ const dataSlice = createSlice({
   }
 });
 
-export const { setMovies,setSearchResult,setSearchKey,addToWatchList,removeFromWatchList } = dataSlice.actions;
+export const { setMovies,setSearchResult,setEmptyMovies,setSearchKey,addToWatchList,removeFromWatchList } = dataSlice.actions;
 export default dataSlice.reducer;
