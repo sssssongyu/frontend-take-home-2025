@@ -1,65 +1,57 @@
-# Take-home Exercise
+# Getfilx - Take-home Exercise
 
-## Introduction
+## Demo Video
+A demo video showcasing the app's functionality can be found: 
+https://www.loom.com/share/fcfa6398956040b0a18920688375a48e
 
-As part of the hiring process, you are provided with a coding exercise to complete and submit. This exercise is designed to assess your ability to work with React and external APIs, as well as your problem-solving and UI/UX implementation skills.
+## Project Overview
 
-This repository includes a basic React web app template as your starting point. You are free to install any libraries or tools you find useful (e.g., state management solutions, UI frameworks, CSS libraries).
+This project is a movie search application that allows users to search and filter movies, view details, manage a watchlist, and toggle between light and dark modes. The app uses **React** with **TypeScript** and **Tailwind CSS**, and it features **infinite scrolling**, **watchlist management**, and a **theme switcher** for a smooth user experience.
 
-## Goals
+## Features
 
-Build a **single-page application** called **Getflix**, which allows users to search for movies and view detailed information about each title. The application should:
+### 1. **Search Movies by Title**
+   - Users can search for movies by typing movie titles into the search bar.
+   - The app dynamically filters results based on the entered title.
 
-1. Provide a search input where users can enter movie titles.
-2. Display matching results, including the movie title, poster, and release year.
-3. Allow users to click on a movie to view more details, such as the plot, cast, and other relevant information.
-4. Ensure the UI is responsive across different screen sizes.
+### 2. **Filter Movies by Type**
+   - Users can filter movies by types such as **Movies**, **Series**, and **Episodes**.
+   - The filter is easily accessible through a dropdown, and results update instantly when a new type is selected.
 
-## Stretch Goals (Bonus Features)
+### 3. **Detailed Movie Information**
+   - Clicking on any movie title will display detailed information, including:
+     - Plot summary
+     - Cast members
+     - Release year
+     - Other relevant movie data
 
-- Implement **infinite scrolling** to load additional results dynamically. The API currently returns titles in lots of 10 - if you can, use the page parameter to request more as you scroll.
-- Add **debounced search** to optimize API requests.
-- Include **animations/transitions** for improved UI/UX.
-- Enable the user to create and manage a watchlist of movies saved in local storage or a database of your choice. It should persist across browser refreshes.
-- Utilize additional values from the API response, such as ratings, awards, and runtime, to create more engaging and informative movie details.
-- Implement a filter using the **type** query parameter to allow users to return only movies, series, or episodes.
-- Implement a theme switcher to allow users to toggle between light and dark mode.
-- Ensure the app meets accessibility standards, including keyboard navigation and screen reader support.
-- Write **unit tests** using Jest, React Testing Library, Vitest or any library of your choice.
-- Deploy the application to **Vercel, Netlify, or GitHub Pages**.
+### 4. **Responsive UI**
+   - The application is fully responsive, ensuring a seamless experience across various screen sizes, from mobile to desktop.
 
-## API Details
+### 5. **Infinite Scrolling**
+   - As users scroll down the page, more movie results are loaded dynamically, providing a smooth infinite scrolling experience without page reloads.
 
-Use the [OMDb API](https://www.omdbapi.com/) to fetch movie data. You can register for your own API key or use this provided key: **320f6ab2**
+### 6. **Watchlist Management**
+   - Users can add movies to their **watchlist** and store it in **local storage** for persistence across sessions.
+   - The watchlist is easily accessible, allowing users to manage their saved movies.
 
-Example API requests:
-
-- Search movies: `https://www.omdbapi.com/?s=Inception&apikey=320f6ab2`
-- Get movie details: `https://www.omdbapi.com/?i=tt1375666&apikey=320f6ab2`
-
-## Requirements
-
-- Use **React 19** with **TypeScript**.
-- Implement **client-side routing** (e.g., React Router) for navigating between search results and movie details.
-- Write clean, maintainable code with appropriate documentation.
-- Ensure that commit messages in the Git repository are clear and descriptive, providing context for each change made.
-- Provide a clear **README** with setup and usage instructions.
-
-## Submission Guidelines
-
-When you’re done, please submit your project via one of the following methods:
-
-- **GitHub Repository:** Share a public repository link, with clear commit messages.
-- **Zip File:** Should be a Git repository, with clear commit messages.
-
-Make sure to include instructions on how to run the application and any relevant dependencies.
-
-## License
-
-**Copyright 2025 Tyro Payments Limited**
-
-Licensed under the Apache License, Version 2.0. See the [LICENSE](http://www.apache.org/licenses/LICENSE-2.0) for details.
+### 7. **Light / Dark Mode Toggle**
+   - Users can toggle between **light** and **dark** modes, enhancing the user experience based on their preference.
 
 ---
 
-We look forward to seeing your submission! 🚀
+## How to Start
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm (Node Package Manager)
+
+### Steps to Run the Project
+
+1. **Clone the repository**:
+    git clone 'this github url'
+    cd 'to your fold'
+    npm install
+    npm run dev
+    Access the app in your browser: http://localhost:5173
