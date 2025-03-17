@@ -38,7 +38,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setMovies: (state, action: PayloadAction<Movie[]>) => {
-      state.movies = action.payload; 
+      state.movies = [...state.movies, ...action.payload];
     },
     setSearchResult: (state, action: PayloadAction<string>) => {
       state.searchResult = action.payload;

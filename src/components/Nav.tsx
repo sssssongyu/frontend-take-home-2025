@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMovies, setSearchResult, setSearchKey } from '../redux/data';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../redux/store';
+import { debounce } from 'lodash';
 
 interface Movie {
   Title: string;
@@ -40,7 +41,7 @@ function Nav() {
 
   useEffect(() => {
     getMovies();
-  }, [searchkey]);
+  }, [searchkey,page]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -49,7 +50,7 @@ function Nav() {
   };
 
   useEffect(() => {
-    setMovieListArray(Object.entries(watchList)); // 更新 watchList 映射
+    setMovieListArray(Object.entries(watchList)); 
   }, [watchList]);
 
   const goHome = () => {
@@ -59,6 +60,20 @@ function Nav() {
   const goMovie = (id:string) => {
     navigate(`/movie/${id}`);
   };
+  const handleScroll = debounce(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 100
+    ) {
+      setPage(prevPage => prevPage + 1); 
+    }
+  }, 300); 
+
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <nav className="bg-white dark:bg-black fixed top-0 p-2 dark:bg-black w-full flex justify-between flex-wrap gap-4">
