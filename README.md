@@ -44,14 +44,13 @@ This project is a movie search application that allows users to search and filte
 
 ### Prerequisites
 
-- Node.js (version 14 or higher)
-- npm (Node Package Manager)
+- Node.js 
+- npm
 
 ### Steps to Run the Project
 
-1. **Clone the repository**:
-    git clone 'this github url'
-    cd 'to your fold'
-    npm install
-    npm run dev
-    Access the app in your browser: http://localhost:5173
+1. **Clone the repository**
+2. **cd 'to your fold'**
+3. **npm install**:
+4. **npm run dev**:
+5. **Access the app in your browser: http://localhost:5173**:
