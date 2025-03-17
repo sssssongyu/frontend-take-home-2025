@@ -13,7 +13,7 @@ function App() {
     <div className="App bg-white min-h-screen text-black dark:bg-black dark:text-white w-full h-full">
       <BrowserRouter>
         <Nav />
-        <div className='pt-20'>
+        <div className='pt-30 sm:pt-20'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movie/:id" element={<Movie />} />

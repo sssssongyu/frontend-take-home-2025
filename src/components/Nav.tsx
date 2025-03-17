@@ -61,16 +61,16 @@ function Nav() {
   };
 
   return (
-    <nav className="fixed top-0 p-2 dark:bg-black w-full flex justify-between">
-      <div className="font-bold text-3xl cursor-pointer" onClick={goHome}>Getfilx</div>
+    <nav className="fixed top-0 p-2 dark:bg-black w-full flex justify-between flex-wrap gap-4">
+      <div className="sm:w-auto font-bold text-3xl cursor-pointer" onClick={goHome}>Getfilx</div>
 
-      <form className="flex items-center max-w-sm mx-auto">
+      <form className="w-full text-center sm:w-auto sm:order-none order-last flex items-center max-w-sm mx-auto">
         <label className="sr-only">Search</label>
-        <div className="">
+        <div className="w-full">
           <input
             type="text"
             id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-white focus:ring-0 focus:outline-none"
+            className="w-full sm:w-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-white focus:ring-0 focus:outline-none"
             placeholder="Search Movie Name..."
             required
             value={searchkey}
@@ -89,7 +89,7 @@ function Nav() {
         </button>
       </form>
 
-      <button onClick={toggleWatchList} className="p-2 text-sm cursor-pointer bg-black dark:bg-white text-white dark:text-black rounded-full">
+      <button onClick={toggleWatchList} className=" sm:w-auto p-2 text-sm cursor-pointer bg-black dark:bg-white text-white dark:text-black rounded-full">
         WatchList
       </button>
 
