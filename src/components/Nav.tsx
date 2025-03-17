@@ -96,9 +96,12 @@ function Nav() {
       {watchListOpen && (
         <div className="fixed inset-0 bg-gray-800 opacity-50 z-40" onClick={toggleWatchList}></div>
       )}
-      <div className={`fixed top-0 right-0 bg-gray-800 text-white w-64 h-full transform transition-all duration-300 z-50 ${watchListOpen ? "translate-x-0" : "translate-x-full"}`}>
+      <div className={`fixed top-0 right-0 bg-gray-800 text-white sm:w-64 h-full transform transition-all duration-300 z-50 ${watchListOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="p-4">
-          <h3 className="text-xl font-bold">WatchList</h3>
+          <h3 className="text-xl font-bold flex justify-between">
+            <div>WatchList</div>
+            <div className="cursor-pointer" onClick={toggleWatchList}>X</div>
+            </h3>
           {movieListArray.length > 0 ? (
             movieListArray.map(([key, movie]) => (
               <div key={key}>
