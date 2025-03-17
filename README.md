@@ -2,7 +2,7 @@
 
 ## Demo Video
 A demo video showcasing the app's functionality can be found: 
-https://www.loom.com/share/fcfa6398956040b0a18920688375a48e
+https://www.loom.com/share/5a7315598a004fdcb860661870a78e7f
 
 ## Project Overview
 
