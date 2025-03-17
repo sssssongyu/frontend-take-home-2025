@@ -28,8 +28,10 @@ const initialState: DataState = {
   movies: [],
   searchResult:'',
   searchKey:'',
-  watchList:{},
+  watchList:JSON.parse(localStorage.getItem('watchList') || '{}'),
 };
+
+
 
 const dataSlice = createSlice({
   name: 'data', 
@@ -52,11 +54,13 @@ const dataSlice = createSlice({
           ...movie,
         };
       }
+      localStorage.setItem('watchList', JSON.stringify(state.watchList));
     },
     removeFromWatchList(state, action: PayloadAction<string>) {
       console.log('action.payload',action.payload)
       const imdbID = action.payload;
       delete state.watchList[imdbID];
+      localStorage.setItem('watchList', JSON.stringify(state.watchList));
     },
   }
 });
