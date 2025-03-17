@@ -53,6 +53,6 @@ This project is a movie search application that allows users to search and filte
 
 1. **Clone the repository**
 2. **cd 'to your fold'**
-3. **npm install**:
-4. **npm run dev**:
-5. **Access the app in your browser: http://localhost:5173**:
+3. **npm install**
+4. **npm run dev**
+5. **Access the app in your browser: http://localhost:5173**
