@@ -1,5 +1,3 @@
-import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.jsx'

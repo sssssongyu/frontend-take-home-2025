@@ -34,7 +34,6 @@ function Nav() {
 
   const handleChangMovieType = (key: keyof typeof movieTypes) => {
     setMovieType(key);
-    console.log('s', key)
   };
 
   const toggleMovieTypeSelection = () => {
@@ -123,16 +122,6 @@ function Nav() {
             onChange={handleSearchChange}
           />
         </div>
-
-        {/* <button
-          type="submit"
-          className="p-2.5 ms-2 text-sm font-medium bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-        >
-          <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-          </svg>
-          <span className="sr-only">Search</span>
-        </button> */}
 
         <div className='relative'>
           <button onClick={toggleMovieTypeSelection} id="dropdownDefaultButton" className="w-auto ml-2 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">{movieTypes[movieType]} <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">

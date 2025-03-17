@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-
 interface Movie {
   Poster: string;
   Type: string;
