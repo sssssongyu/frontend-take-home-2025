@@ -32,7 +32,7 @@ function Home() {
               onClick={()=>goMovie(movie.imdbID)}
             >
               <a href="#">
-                <img className="rounded-t-lg w-full" src={movie.Poster} alt={movie.Title} />
+                <img className="rounded-t-lg w-full" src={movie.Poster!=='N/A'?movie.Poster:'/noposter.jpeg'} alt={movie.Title} />
               </a>
               <div className="p-5">
                 <a href="#">
